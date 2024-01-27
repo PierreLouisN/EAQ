@@ -24,13 +24,17 @@ class Readings:
 
     @classmethod
     def _format_single_reading(cls, reading):
-        """Reading formated as a dict. Just append the stuff together"""
+        intro_lue = reading.get("intro_lue")
+        ref = reading.get("ref")
+        contenu = reading.get("contenu")
 
-        strings_to_append = [reading.get("intro_lue"), 
-                             reading.get("ref"), reading.get("contenu")]
+        formatted_intro_lue = f"<b>{cls.strip_html_tags(intro_lue)}</b>"
+        formatted_ref = f"<b>{cls.strip_html_tags(ref)}</b>"
 
-        return "\n".join([cls.strip_html_tags(x) 
-                          for x in strings_to_append if x is not None])
+        strings_to_append = [formatted_intro_lue, formatted_ref, contenu]
+
+        return "\n".join([cls.strip_html_tags(x)
+                for x in strings_to_append if x is not None])
 
     @staticmethod
     def strip_html_tags(s):
